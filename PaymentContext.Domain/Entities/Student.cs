@@ -18,8 +18,12 @@ namespace PaymentContext.Domain.Entities
             Email = email;
             _subscriptions = new List<Subscription>();
 
-            if (string.IsNullOrEmpty(Name.FirstName))
-                AddNotification("Name.FirstName", "Nome inválido");
+            AddNotifications(name, document,  email);
+        }
+
+        private void AddNotifications(Name name, Document document, Email email)
+        {
+            throw new NotImplementedException();
         }
 
         public Name Name { get; private set; }
@@ -30,11 +34,13 @@ namespace PaymentContext.Domain.Entities
 
         public void AddSubscription(Subscription subscription)
         {
-            foreach (var sub in Subscriptions)
-            
-                sub.Inactivate();
-            
-            _subscriptions.Add(subscription);
+            var hasSubscriptionActive = false;
+            foreach (var sub in _subscriptions)
+            {
+                if(sub.Active)
+                    hasSubscriptionActive = true;
+            }
+
         }
     }
 }
